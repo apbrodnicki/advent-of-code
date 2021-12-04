@@ -1,5 +1,4 @@
 const fs = require('fs');
-const { addListener } = require('process');
 const readline = require('readline');
 
 const read = readline.createInterface({
