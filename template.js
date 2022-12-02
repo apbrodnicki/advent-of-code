@@ -1,7 +1,7 @@
 const fs = require('fs');
 const readline = require('readline');
 
-const startTime = new Date();
+const startTime = performance.now();
 
 const read = readline.createInterface({
 	input: fs.createReadStream('input.txt'),
