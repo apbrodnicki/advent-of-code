@@ -36,28 +36,39 @@ const alphabetMap = {
 	z: 26,
 };
 
+let group1 = [];
+let group2 = [];
+let group3 = [];
 let duplicate = '';
 let priority = 0;
 let prioritySum = 0;
 
 read.on('line', function (line) {
-	const halfLength = line.length / 2;
-	const comp1 = line.substring(0, halfLength).split('');
-	const comp2 = line.substring(halfLength).split('');
+	if (group1.length === 0) {
+		group1 = line.split('');
+	} else if (group2.length === 0) {
+		group2 = line.split('');
+	} else if (group3.length === 0) {
+		group3 = line.split('');
 
-	comp1.forEach((char) => {
-		if (comp2.includes(char)) {
-			duplicate = char;
+		group1.forEach((char) => {
+			if (group2.includes(char) && group3.includes(char)) {
+				duplicate = char;
+			}
+		});
+
+		if (duplicate === duplicate.toLowerCase()) {
+			priority = alphabetMap[duplicate];
+		} else {
+			priority = alphabetMap[duplicate.toLowerCase()] + 26;
 		}
-	});
 
-	if (duplicate === duplicate.toLowerCase()) {
-		priority = alphabetMap[duplicate];
-	} else {
-		priority = alphabetMap[duplicate.toLowerCase()] + 26;
+		prioritySum += priority;
+
+		group1 = [];
+		group2 = [];
+		group3 = [];
 	}
-
-	prioritySum += priority;
 });
 
 read.on('close', function () {
